@@ -2,6 +2,8 @@ package br.com.wsilva.opencvfacerecognition.person.list
 
 import br.com.wsilva.opencvfacerecognition.model.entity.PersonEntity
 import br.com.wsilva.opencvfacerecognition.model.repository.PersonRepository
+import br.com.wsilva.opencvfacerecognition.util.Utils
+import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 /**
@@ -9,6 +11,8 @@ import javax.inject.Inject
  */
 class PersonListPresenter: PersonListContract.Presenter
 {
+
+
     var view: PersonListContract.View
     var repository: PersonRepository
 
@@ -21,18 +25,19 @@ class PersonListPresenter: PersonListContract.Presenter
     override fun destroy() {
     }
 
-    override fun listAllPerson() {
-        val list = ArrayList<PersonEntity>()
-        list.add(PersonEntity("Joe Satriani", "+55 9999-9999", "joe@email.com", ""))
-        list.add(PersonEntity("Steve Vai", "+55 9999-9999", "joe@email.com", ""))
-        list.add(PersonEntity("John Petrucci", "+55 9999-9999", "joe@email.com", ""))
-        list.add(PersonEntity("Ritchie Blackmore", "+55 9999-9999", "joe@email.com", ""))
-        list.add(PersonEntity("Roger Waters", "+55 9999-9999", "joe@email.com", ""))
-        view.showPerson(list)
+    override fun listAllPerson()
+    {
+        repository.listAll()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe{list -> view.showPerson(list)}
     }
 
     override fun adicionarPerson() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.showAdicionarPerson(Utils.getRandomUUID().toString())
+    }
+
+    override fun manterPerson(entity: PersonEntity) {
+        view.showManterPerson(entity.uuid)
     }
 
     override fun confirmarExcluirPerson(entity: PersonEntity) {

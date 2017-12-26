@@ -16,6 +16,9 @@ interface PersonDAO
     @Query("SELECT * FROM person WHERE pers_id = :id")
     fun get(id: Int) : PersonEntity
 
+    @Query("SELECT * FROM person WHERE pers_uuid = :uuid")
+    fun getByUUID(uuid: String) : Flowable<PersonEntity>
+
     @Delete
     fun delete(entity : PersonEntity) : Int
 

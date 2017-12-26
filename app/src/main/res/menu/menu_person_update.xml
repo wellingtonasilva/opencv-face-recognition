@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="br.com.wsilva.opencvfacerecognition.MainActivity">
+    <item
+        android:id="@+id/action_salvar"
+        android:orderInCategory="100"
+        android:title="@string/app_salvar"
+        app:showAsAction="always"
+        app:actionViewClass="android.support.v7.widget.AppCompatButton"/>
+        />
+</menu>

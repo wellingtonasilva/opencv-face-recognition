@@ -10,8 +10,8 @@ interface PersonListContract
 {
     interface View {
         fun showPerson(list: List<PersonEntity>)
-        fun showAdicionarPerson()
-        fun showManterPerson(id: Long)
+        fun showAdicionarPerson(uuid: String)
+        fun showManterPerson(uuid: String)
         fun showConfirmarExcluir(entity: PersonEntity)
         fun showExcluirSucesso()
         fun showExcluirFalha()
@@ -22,5 +22,6 @@ interface PersonListContract
         fun adicionarPerson()
         fun confirmarExcluirPerson(entity: PersonEntity)
         fun excluirPerson(entity: PersonEntity)
+        fun manterPerson(entity: PersonEntity)
     }
 }

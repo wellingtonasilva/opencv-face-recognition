@@ -26,6 +26,10 @@ class PersonRepository: BasicRepository<PersonEntity>
         return dao.get(id)
     }
 
+    fun getByUUID(uuid: String): Flowable<PersonEntity> {
+        return dao.getByUUID(uuid)
+    }
+
     override fun delete(entity: PersonEntity): Int {
         return dao.delete(entity)
     }

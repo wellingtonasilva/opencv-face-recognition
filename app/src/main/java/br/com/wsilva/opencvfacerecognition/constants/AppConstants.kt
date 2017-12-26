@@ -7,5 +7,7 @@ class AppConstants
 {
     companion object {
         val CASCADE_DIRECTORY = "cascade"
+        val KEY_UUID = "KEY_UUID"
+        val KEY_FILENAME = "KEY_FILENAME"
     }
 }
