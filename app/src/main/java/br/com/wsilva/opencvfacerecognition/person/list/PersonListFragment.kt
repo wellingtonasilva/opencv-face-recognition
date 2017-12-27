@@ -4,14 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v7.widget.Toolbar
+import android.view.*
 import android.widget.Toast
 import br.com.wsilva.opencvfacerecognition.AppApplication
 import br.com.wsilva.opencvfacerecognition.R
+import br.com.wsilva.opencvfacerecognition.facerecognition.FaceRecognitionActivity
 import br.com.wsilva.opencvfacerecognition.constants.AppConstants
 import br.com.wsilva.opencvfacerecognition.model.entity.PersonEntity
 import br.com.wsilva.opencvfacerecognition.model.repository.PersonRepository
@@ -55,6 +56,8 @@ class PersonListFragment: Fragment(), PersonListContract.View, PersonListAdapter
     {
         val view = inflater?.inflate(R.layout.lay_person_list_fragment, container, false)
         view?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener { presenter.adicionarPerson()}
+        (activity as AppCompatActivity).setSupportActionBar(view?.findViewById<Toolbar>(R.id.toolbar))
+        setHasOptionsMenu(true)
 
         return view
     }
@@ -63,6 +66,21 @@ class PersonListFragment: Fragment(), PersonListContract.View, PersonListAdapter
         super.onResume()
         presenter.listAllPerson()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?)
+    {
+        inflater?.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean
+    {
+        if (item?.itemId == R.id.action_face_recognition) {
+            showReconhecimentoFacial()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun showPerson(list: List<PersonEntity>)
     {
         adapter = PersonListAdapter(activity, list, this)
@@ -72,11 +90,18 @@ class PersonListFragment: Fragment(), PersonListContract.View, PersonListAdapter
         recyclerView.adapter = adapter
     }
 
-    override fun showAdicionarPerson(uuid: String) {
+    override fun showAdicionarPerson(uuid: String)
+    {
         val intent = Intent(activity, PersonUpdateActivity::class.java)
         val bundle = Bundle()
         bundle.putString(AppConstants.KEY_UUID, uuid)
         intent.putExtras(bundle)
+        startActivity(intent)
+    }
+
+    override fun showReconhecimentoFacial()
+    {
+        val intent = Intent(activity, FaceRecognitionActivity::class.java)
         startActivity(intent)
     }
 

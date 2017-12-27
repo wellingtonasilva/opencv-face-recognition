@@ -46,8 +46,6 @@ class PersonUpdatePresenter: PersonUpdateContract.Presenter
         } else {
             atualizarPerson(entity)
         }
-
-        criarImagemFace(AppApplication.appComponent.application, entity.uuid, entity.id)
     }
 
     override fun inserirPerson(entity: PersonEntity)
@@ -56,7 +54,12 @@ class PersonUpdatePresenter: PersonUpdateContract.Presenter
         observable
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe { id -> if (id > 0) view.showSalvarSucesso() else view.showSalvarFalha()}
+                .subscribe { id -> if (id > 0)
+                    {
+                        criarImagemFace(AppApplication.appComponent.application, entity.photoFilename1, id)
+                        view.showSalvarSucesso()
+                    } else view.showSalvarFalha()
+                }
     }
 
     override fun atualizarPerson(entity: PersonEntity)
@@ -65,12 +68,16 @@ class PersonUpdatePresenter: PersonUpdateContract.Presenter
         observable
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe { id -> if (id > 0) view.showSalvarSucesso() else view.showSalvarFalha()}
+                .subscribe { id -> if (id > 0)
+                {
+                    criarImagemFace(AppApplication.appComponent.application, entity.photoFilename1, entity.id)
+                    view.showSalvarSucesso()
+                } else view.showSalvarFalha()}
     }
 
-    override fun criarImagemFace(context: Context, uuid: String, id: Long)
+    override fun criarImagemFace(context: Context, filename: String, id: Long)
     {
-        val observable: Observable<Boolean> = Observable.create<Boolean>{ emmiter -> emmiter.onNext(Utils.capturePhoto(context, uuid, id))}
+        val observable: Observable<Boolean> = Observable.create<Boolean>{ emmiter -> emmiter.onNext(Utils.capturePhoto(context, filename, id))}
         observable
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

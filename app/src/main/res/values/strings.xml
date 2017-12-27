@@ -14,5 +14,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="app_ok">OK</string>
+    <string name="app_face_recognition">Reconhecer</string>
     <string name="app_cancela">Cancela</string>
 </resources>

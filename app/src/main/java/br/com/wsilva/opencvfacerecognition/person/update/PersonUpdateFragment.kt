@@ -22,7 +22,6 @@ import android.view.*
 import android.widget.Button
 import br.com.wsilva.opencvfacerecognition.AppApplication
 import br.com.wsilva.opencvfacerecognition.R
-import br.com.wsilva.opencvfacerecognition.cameracapture.CameraCaptureActivity
 import br.com.wsilva.opencvfacerecognition.constants.AppConstants
 import br.com.wsilva.opencvfacerecognition.model.entity.PersonEntity
 import br.com.wsilva.opencvfacerecognition.model.repository.PersonRepository

@@ -14,7 +14,7 @@ interface PersonDAO
     fun listAll() : Flowable<List<PersonEntity>>
 
     @Query("SELECT * FROM person WHERE pers_id = :id")
-    fun get(id: Int) : PersonEntity
+    fun get(id: Int) : Flowable<PersonEntity>
 
     @Query("SELECT * FROM person WHERE pers_uuid = :uuid")
     fun getByUUID(uuid: String) : Flowable<PersonEntity>

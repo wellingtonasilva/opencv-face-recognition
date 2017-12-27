@@ -23,6 +23,6 @@ interface PersonUpdateContract {
         fun salvarPerson(entity: PersonEntity)
         fun inserirPerson(entity: PersonEntity)
         fun atualizarPerson(entity: PersonEntity)
-        fun criarImagemFace(context: Context, uuid: String, id: Long)
+        fun criarImagemFace(context: Context, filename: String, id: Long)
     }
 }

@@ -22,7 +22,7 @@ class PersonRepository: BasicRepository<PersonEntity>
         return dao.listAll()
     }
 
-    override fun get(id: Int): PersonEntity {
+    override fun get(id: Int): Flowable<PersonEntity> {
         return dao.get(id)
     }
 

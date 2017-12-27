@@ -77,12 +77,11 @@ class Utils
             return UUID.randomUUID()
         }
 
-        fun capturePhoto(context: Context, uuid: String, id: Long) : Boolean
+        fun capturePhoto(context: Context, filename: String, id: Long) : Boolean
         {
-            val filename = context.filesDir.canonicalPath + "/JPEG_" + uuid
-            val filename1 = filename + "_1.jpg"
-            val filename2 = filename + "_2.jpg"
-            val mGray = Highgui.imread(filename + ".jpg", CV_LOAD_IMAGE_GRAYSCALE)
+            //val filename1 = File(filename).absolutePath.replace(".jpg", "") + "_1.jpg"
+            //val filename2 = File(filename).absolutePath.replace(".jpg", "") + "_2.jpg"
+            val mGray = Highgui.imread(filename, CV_LOAD_IMAGE_GRAYSCALE)
             //val mGray = Mat()
             val faceCascade: CascadeClassifier
             val faces = MatOfRect()
@@ -102,6 +101,8 @@ class Utils
             val facesArray = faces.toArray()
             for (i in facesArray.indices)
             {
+                val filename1 = File(filename).absolutePath.replace(".jpg", "") + "_" + i + ".jpg"
+                val filename2 = File(filename).absolutePath.replace(".jpg", "") + "_" + (i + 1) + ".jpg"
                 //Obter a foto somente da primeira face
                 val olhos = facesArray[i]
                 val olhosROI = mGray?.submat(olhos)
@@ -116,10 +117,8 @@ class Utils
                 //Adicionar no arquivo CSV
                 adicionarImagemNoCSV(context, NOME_ARQUIVO_CSV, context.filesDir.toString(), filename1, id)
                 adicionarImagemNoCSV(context, NOME_ARQUIVO_CSV, context.filesDir.toString(), filename2, id)
-                break
             }
 
-            Highgui.imwrite(filename2, mGray)
             return true
         }
 
@@ -130,8 +129,8 @@ class Utils
             val storageDir = context.filesDir
 
             return File.createTempFile(
-                    imageFileName, /* prefix */
-                    ".jpg", /* suffix */
+                    imageFileName,      /* prefix */
+                    ".jpg",       /* suffix */
                     storageDir          /* directory */
             )
         }
@@ -168,7 +167,7 @@ class Utils
                 //Abri arquivo para gravação
                 val writer = BufferedWriter(FileWriter(fileCSV, true))
                 if (newline) writer.newLine()
-                writer.append(pathName + "/" + filename + ";" + contatoId.toString())
+                writer.append(filename + ";" + contatoId.toString())
                 writer.close()
 
                 return true
@@ -176,7 +175,6 @@ class Utils
                 e.printStackTrace()
                 return false
             }
-
         }
     }
 }

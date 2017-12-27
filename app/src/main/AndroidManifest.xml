@@ -47,6 +47,13 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
 
+        <activity
+            android:name=".facerecognition.FaceRecognitionActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="br.com.wsilva.opencvfacerecognition.fileprovider"
@@ -57,10 +64,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

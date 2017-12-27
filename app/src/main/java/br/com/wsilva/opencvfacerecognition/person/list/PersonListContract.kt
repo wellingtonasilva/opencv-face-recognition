@@ -15,6 +15,7 @@ interface PersonListContract
         fun showConfirmarExcluir(entity: PersonEntity)
         fun showExcluirSucesso()
         fun showExcluirFalha()
+        fun showReconhecimentoFacial()
     }
 
     interface Presenter: BasicPresenter {

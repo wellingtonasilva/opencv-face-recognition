@@ -163,7 +163,8 @@ JNIEXPORT int JNICALL Java_br_com_wsilva_opencvfacerecognition_util_FaceRecognit
 		haar_cascade.load(stdFileName);
 		for(;;)
 		{
-			Mat original = imread(stdImageName+".jpg", 1);
+			Mat original = imread(stdImageName, 1);
+			//Mat original = imread(stdImageName+".jpg", 1);
 			// Clone the current frame:
 			Mat gray = original.clone();
 			// Convert the current frame to grayscale:
