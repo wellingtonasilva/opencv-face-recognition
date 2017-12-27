@@ -1,5 +1,6 @@
 package br.com.wsilva.opencvfacerecognition.facerecognition.di
 
+import android.content.Context
 import br.com.wsilva.opencvfacerecognition.facerecognition.FaceRecognitionActivity
 import br.com.wsilva.opencvfacerecognition.facerecognition.FaceRecognitionContract
 import br.com.wsilva.opencvfacerecognition.facerecognition.FaceRecognitionPresenter
@@ -14,12 +15,17 @@ import dagger.Provides
 class FaceRecognitionModule(val activity: FaceRecognitionActivity)
 {
     @Provides
+    fun providesContext(): Context {
+        return activity
+    }
+
+    @Provides
     fun providesFaceRecognitionView(): FaceRecognitionContract.View {
         return activity
     }
 
     @Provides
-    fun providesFaceRecognitionPresenter(view: FaceRecognitionContract.View, repository: PersonRepository): FaceRecognitionPresenter {
-        return FaceRecognitionPresenter(view, repository)
+    fun providesFaceRecognitionPresenter(context: Context, view: FaceRecognitionContract.View, repository: PersonRepository): FaceRecognitionPresenter {
+        return FaceRecognitionPresenter(context, view, repository)
     }
 }
